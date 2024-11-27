@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Students</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f3f4f6;
+            color: #333;
+            padding: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            color: #333;
+            animation: fadeIn 1s ease-out;
+        }
+        form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.8s ease-out;
+        }
+        form input[type="text"], form input[type="number"] {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            width: 140px;
+            transition: all 0.3s ease;
+        }
+        form input[type="text"]:focus, form input[type="number"]:focus {
+            border-color: #4CAF50;
+            outline: none;
+            box-shadow: 0px 0px 5px rgba(76, 175, 80, 0.5);
+        }
+        form button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        form button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            animation: fadeInUp 1s ease-out;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+            transition: background-color 0.3s;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #45a049;
+        }
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <h1>Students List</h1>
+    <form action="#" th:action="@{/students}" method="post">
+        <input type="text" name="name" placeholder="Student Name" required>
+        <input type="number" name="maths" placeholder="Maths Marks" required>
+        <input type="number" name="physics" placeholder="Physics Marks" required>
+        <input type="number" name="chemistry" placeholder="Chemistry Marks" required>
+        <button type="submit">Calculate</button>
+    </form>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Maths</th>
+            <th>Physics</th>
+            <th>Chemistry</th>
+            <th>Calculated CutOff Marks</th>
+        </tr>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.name}"></td>
+            <td th:text="${student.maths}"></td>
+            <td th:text="${student.physics}"></td>
+            <td th:text="${student.chemistry}"></td>
+            <td th:text="${student.getAverageMarks()}"></td>
+        </tr>
+    </table>
+    <!-- Link to return to Welcome page -->
+    <a href="/" class="button">Back to Welcome Page</a>
+</body>
+</html>
